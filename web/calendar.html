@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="calendar-html-layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar View — FOD Rooms</title>
+    <meta name="description" content="Weekly calendar view for FOD room bookings at MAHSA University.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="calendar-page-layout">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-icon">🏢</span>
+            <h2>FOD Rooms</h2>
+            <p>MAHSA University</p>
+        </div>
+        <div class="sidebar-divider"></div>
+        <nav class="sidebar-nav">
+            <a href="book.html" class="nav-link">📅 Book a Room</a>
+            <a href="calendar.html" class="nav-link">🗓️ Calendar View</a>
+            <a href="admin.html" class="nav-link">🔐 Admin Panel</a>
+        </nav>
+        <div class="sidebar-footer">Faculty of Dentistry<br>Room Booking System</div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+        <header class="page-header">
+            <button class="hamburger" id="hamburger">☰</button>
+            <div>
+                <h1>🏢 FOD Room Booking</h1>
+                <p>Faculty of Dentistry — MAHSA University</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Page title -->
+            <h2 class="mb-md">🗓️ Calendar View</h2>
+
+            <!-- Controls card -->
+            <div class="card mb-md">
+                <div class="form-row items-center">
+                    <!-- Room selector -->
+                    <div class="form-group" style="margin-bottom:0">
+                        <label class="form-label" for="room-select">Room</label>
+                        <select class="form-select" id="room-select">
+                            <option value="">-- Select a Room --</option>
+                        </select>
+                    </div>
+
+                    <!-- Week navigation -->
+                    <div class="form-group" style="margin-bottom:0">
+                        <label class="form-label">Week of</label>
+                        <div class="calendar-nav">
+                            <button class="calendar-nav-btn" id="btn-prev-week" title="Previous week">◀</button>
+                            <input type="date" class="form-input" id="week-date-input">
+                            <button class="calendar-nav-btn" id="btn-next-week" title="Next week">▶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar grid (built by JS) -->
+            <div id="calendar-wrapper">
+                <div class="loading-overlay" id="calendar-loading">
+                    <div class="spinner spinner-lg"></div>
+                    <span>Loading calendar…</span>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="calendar-legend" id="calendar-legend" style="display:none;">
+                <span>🟫 Approved</span>
+                <span>🟡 Pending</span>
+                <span>— Available</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Selection Panel -->
+    <div id="selection-panel" class="bottom-panel hidden">
+        <div class="bottom-panel-content">
+            <div class="selection-details">
+                <span class="selection-icon">📅</span>
+                <span id="selection-text">Select slots to make booking</span>
+            </div>
+            <button class="btn btn-success" id="btn-make-booking-panel">Make Booking</button>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/email.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>

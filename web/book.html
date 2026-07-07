@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Room — FOD Rooms</title>
+    <meta name="description" content="Book a meeting room at MAHSA University Faculty of Dentistry.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-icon">🏢</span>
+            <h2>FOD Rooms</h2>
+            <p>MAHSA University</p>
+        </div>
+        <div class="sidebar-divider"></div>
+        <nav class="sidebar-nav">
+            <a href="book.html" class="nav-link active">📅 Book a Room</a>
+            <a href="calendar.html" class="nav-link">🗓️ Calendar View</a>
+            <a href="admin.html" class="nav-link">🔐 Admin Panel</a>
+        </nav>
+        <div class="sidebar-footer">Faculty of Dentistry<br>Room Booking System</div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="main-content">
+        <header class="page-header">
+            <button class="hamburger" id="hamburger">☰</button>
+            <div>
+                <h1>📅 Book a Room</h1>
+                <p>Faculty of Dentistry — MAHSA University</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Loading state while fetching operating hours -->
+            <div id="page-loader" class="loading-overlay">
+                <div class="spinner spinner-lg"></div>
+                <span>Loading booking portal…</span>
+            </div>
+
+            <!-- Main booking interface (hidden until loaded) -->
+            <div id="booking-app" class="hidden">
+
+                <!-- Strategy Toggle -->
+                <div class="strategy-tabs" id="strategy-tabs">
+                    <button class="strategy-tab active" data-strategy="find-room" id="tab-find-room">🔍 Find a Room</button>
+                    <button class="strategy-tab" data-strategy="pick-room" id="tab-pick-room">🏠 Pick a Room</button>
+                </div>
+
+                <!-- ============================================
+                     STRATEGY 1: Find a Room (Date & Time First)
+                     ============================================ -->
+                <div id="strategy-find-room" class="tab-content active">
+                    <section class="form-section">
+                        <h3 class="form-section-title">📅 Select Date &amp; Time</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="s1-date">Date <span class="required">*</span></label>
+                                <input type="date" class="form-input" id="s1-date">
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="s1-start-time">Start Time <span class="required">*</span></label>
+                                <select class="form-select" id="s1-start-time">
+                                    <option value="">Select start time</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="s1-end-time">End Time <span class="required">*</span></label>
+                                <select class="form-select" id="s1-end-time" disabled>
+                                    <option value="">Select start time first</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-full mt-sm" id="s1-search-btn" disabled>
+                            🔍 Search Available Rooms
+                        </button>
+                    </section>
+
+                    <!-- Search Results -->
+                    <div id="s1-results" class="hidden">
+                        <section class="form-section">
+                            <h3 class="form-section-title">🏠 Available Rooms</h3>
+                            <div id="s1-rooms-container"></div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                     STRATEGY 2: Pick a Room (Room First)
+                     ============================================ -->
+                <div id="strategy-pick-room" class="tab-content">
+                    <section class="form-section">
+                        <h3 class="form-section-title">🏠 Select Room</h3>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label class="form-label" for="s2-room">Room <span class="required">*</span></label>
+                            <select class="form-select" id="s2-room">
+                                <option value="">Loading rooms…</option>
+                            </select>
+                        </div>
+                    </section>
+
+                    <!-- Date Mode Selection -->
+                    <section class="form-section" id="s2-date-mode-section">
+                        <h3 class="form-section-title">📅 Select Dates</h3>
+                        <div class="strategy-tabs" id="date-mode-tabs">
+                            <button type="button" class="strategy-tab active" data-mode="specific" id="tab-specific">📆 Specific Dates</button>
+                            <button type="button" class="strategy-tab" data-mode="recurring" id="tab-recurring">🔁 Weekly Recurring</button>
+                        </div>
+
+                        <!-- Specific Dates Mode -->
+                        <div id="mode-specific" class="tab-content active">
+                            <div class="form-row" style="margin-bottom:0">
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label class="form-label" for="s2-specific-date">Date <span class="required">*</span></label>
+                                    <input type="date" class="form-input" id="s2-specific-date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recurring Mode -->
+                        <div id="mode-recurring" class="tab-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="s2-weekday">Day <span class="required">*</span></label>
+                                    <select class="form-select" id="s2-weekday">
+                                        <option value="">Select day</option>
+                                        <option value="0">Monday</option>
+                                        <option value="1">Tuesday</option>
+                                        <option value="2">Wednesday</option>
+                                        <option value="3">Thursday</option>
+                                        <option value="4">Friday</option>
+                                        <option value="5">Saturday</option>
+                                        <option value="6">Sunday</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom:0">
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label class="form-label" for="s2-start-date">Start Date <span class="required">*</span></label>
+                                    <input type="date" class="form-input" id="s2-start-date">
+                                </div>
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label class="form-label" for="s2-end-date">Recur Until <span class="required">*</span></label>
+                                    <input type="date" class="form-input" id="s2-end-date">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Time Selection & Availability Check -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">⏰ Select Time</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="s2-start-time">Start Time <span class="required">*</span></label>
+                                <select class="form-select" id="s2-start-time">
+                                    <option value="">Select start time</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="s2-end-time">End Time <span class="required">*</span></label>
+                                <select class="form-select" id="s2-end-time" disabled>
+                                    <option value="">Select start time first</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Specific dates action -->
+                        <div id="s2-specific-action-container">
+                            <button class="btn btn-primary btn-full btn-lg mt-sm" id="s2-check-specific-btn" disabled>
+                                📆 Check Availability
+                            </button>
+                            <div id="s2-specific-results" class="hidden mt-md"></div>
+                        </div>
+
+                        <!-- Recurring dates action -->
+                        <div id="s2-recurring-action-container" class="hidden">
+                            <button class="btn btn-primary btn-full btn-lg mt-sm" id="s2-check-recurring-btn" disabled>
+                                🔁 Check Recurring Availability
+                            </button>
+                            <div id="s2-recurring-results" class="hidden mt-md"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- ============================================
+                     SHARED BOOKING FORM
+                     ============================================ -->
+                <div id="booking-form-section" class="hidden">
+                    <hr class="divider">
+                    <section class="form-section">
+                        <h3 class="form-section-title">📋 Booking Summary</h3>
+                        <div class="metrics-row" id="booking-summary">
+                            <div class="metric-card">
+                                <div class="metric-label">Room</div>
+                                <div class="metric-value" id="summary-room">—</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Time</div>
+                                <div class="metric-value" id="summary-time">—</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Duration</div>
+                                <div class="metric-value" id="summary-duration">—</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Date(s)</div>
+                                <div class="metric-value" id="summary-dates">—</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h3 class="form-section-title">✍️ Your Details</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="booker-name">Full Name <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="booker-name" placeholder="Enter your full name" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="booker-email">Email <span class="required">*</span></label>
+                            <input type="email" class="form-input" id="booker-email" placeholder="Enter your university email" autocomplete="email">
+                            <p class="form-hint">Must use an approved university email domain.</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="meeting-title">Meeting Title <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="meeting-title" placeholder="Enter event title">
+                        </div>
+                        <button class="btn btn-success btn-lg btn-full mt-sm" id="submit-booking-btn">
+                            ✅ Submit Booking Request
+                        </button>
+                    </section>
+                </div>
+
+                <!-- ============================================
+                     SUCCESS STATE
+                     ============================================ -->
+                <div id="success-section" class="hidden">
+                    <section class="form-section text-center">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🎉</div>
+                            <h2>Booking Submitted!</h2>
+                            <p class="empty-state-text mt-sm" id="success-message">
+                                Your booking request has been submitted and is pending admin approval.
+                                You will receive an email notification once it's been reviewed.
+                            </p>
+                            <button class="btn btn-primary btn-lg mt-lg" id="new-booking-btn">
+                                📅 Make Another Booking
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+            </div><!-- /booking-app -->
+        </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/email.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>

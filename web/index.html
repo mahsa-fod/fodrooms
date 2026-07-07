@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOD Room Booking — MAHSA University</title>
+    <meta name="description" content="Faculty of Dentistry room booking system — MAHSA University. Book meeting rooms online.">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .landing-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 0.6s ease;
+        }
+        .landing-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: slideDown 0.5s ease;
+        }
+        .landing-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .landing-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 420px;
+        }
+        .landing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            max-width: 720px;
+            width: 100%;
+        }
+        .landing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all var(--transition);
+            text-align: center;
+        }
+        .landing-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-4px);
+            color: var(--text-primary);
+        }
+        .landing-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .landing-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .landing-card-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        @media (max-width: 600px) {
+            .landing-cards { grid-template-columns: 1fr; }
+            .landing-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-icon">🏢</span>
+            <h2>FOD Rooms</h2>
+            <p>MAHSA University</p>
+        </div>
+        <div class="sidebar-divider"></div>
+        <nav class="sidebar-nav">
+            <a href="book.html" class="nav-link">📅 Book a Room</a>
+            <a href="calendar.html" class="nav-link">🗓️ Calendar View</a>
+            <a href="admin.html" class="nav-link">🔐 Admin Panel</a>
+        </nav>
+        <div class="sidebar-footer">
+            Faculty of Dentistry<br>Room Booking System
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="page-header">
+            <button class="hamburger" id="hamburger">☰</button>
+            <div>
+                <h1>🏢 FOD Room Booking</h1>
+                <p>Faculty of Dentistry — MAHSA University</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="landing-hero">
+                <div class="landing-icon">🏢</div>
+                <h1 class="landing-title">FOD Room Booking</h1>
+                <p class="landing-subtitle">
+                    Faculty of Dentistry — MAHSA University<br>
+                    Book meeting rooms, view schedules, and manage reservations.
+                </p>
+
+                <div class="landing-cards">
+                    <a href="book.html" class="landing-card">
+                        <span class="landing-card-icon">📅</span>
+                        <div class="landing-card-title">Book a Room</div>
+                        <div class="landing-card-desc">Reserve a meeting room in a few steps</div>
+                    </a>
+                    <a href="calendar.html" class="landing-card">
+                        <span class="landing-card-icon">🗓️</span>
+                        <div class="landing-card-title">Calendar View</div>
+                        <div class="landing-card-desc">View weekly room availability</div>
+                    </a>
+                    <a href="admin.html" class="landing-card">
+                        <span class="landing-card-icon">🔐</span>
+                        <div class="landing-card-title">Admin Panel</div>
+                        <div class="landing-card-desc">Manage bookings, rooms & settings</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/config.js"></script>
+</body>
+</html>
